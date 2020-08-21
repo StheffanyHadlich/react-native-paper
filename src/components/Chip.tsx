@@ -288,7 +288,7 @@ class Chip extends React.Component<Props, State> {
                 {
                   ...theme.fonts.regular,
                   color: textColor,
-                  marginRight: onClose ? 4 : 8,
+                  marginRight: onClose ? 0 : 8,
                   marginLeft: avatar || icon || selected ? 4 : 8,
                 },
                 textStyle,
@@ -296,19 +296,20 @@ class Chip extends React.Component<Props, State> {
             >
               {children}
             </Text>
-            {onClose ? (
-              <TouchableWithoutFeedback
-                onPress={onClose}
-                accessibilityTraits="button"
-                accessibilityComponentType="button"
-              >
-                <View style={styles.icon}>
-                  <Icon source="close-circle" size={16} color={iconColor} />
-                </View>
-              </TouchableWithoutFeedback>
-            ) : null}
           </View>
         </TouchableRipple>
+        {onClose ? (
+          <TouchableWithoutFeedback
+            onPress={onClose}
+            accessibilityTraits="button"
+            accessibilityComponentType="button"
+            accessibilityRole="button"
+          >
+            <View style={[styles.icon, styles.closeIcon]}>
+              <Icon source="close-circle" size={16} color={iconColor} />
+            </View>
+          </TouchableWithoutFeedback>
+        ) : null}
       </Surface>
     );
   }
@@ -318,6 +319,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: StyleSheet.hairlineWidth,
     borderStyle: 'solid',
+    flexDirection: 'row',
   },
   content: {
     flexDirection: 'row',
@@ -326,6 +328,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     padding: 4,
+    alignSelf: 'center',
+  },
+  closeIcon: {
+    marginRight: 4,
   },
   text: {
     minHeight: 24,
